@@ -5,13 +5,12 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
-  GetUserByIdParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
-export async function getUserById(params: GetUserByIdParams) {
+export async function getUserById(params: any) {
   try {
     connectToDatabase();
 
@@ -42,6 +41,7 @@ export async function createUser(userData: CreateUserParams) {
 export async function updateUser(params: UpdateUserParams) {
   try {
     connectToDatabase();
+
     const { clerkId, updateData, path } = params;
 
     await User.findOneAndUpdate({ clerkId }, updateData, {
@@ -68,20 +68,18 @@ export async function deleteUser(params: DeleteUserParams) {
     }
 
     // Delete user from database
-    // and everything related to it
+    // and questions, answers, comments, etc.
 
     // get user question ids
-    // const userQuestionIds = await Question.find({ author: user._id }).distinct(
-    //   "_id"
-    // );
+    // const userQuestionIds = await Question.find({ author: user._id}).distinct('_id');
 
     // delete user questions
     await Question.deleteMany({ author: user._id });
 
     // TODO: delete user answers, comments, etc.
 
-    // delete user from database
-    const deletedUser = await User.findByIdAndDelete({ clerkId });
+    const deletedUser = await User.findByIdAndDelete(user._id);
+
     return deletedUser;
   } catch (error) {
     console.log(error);

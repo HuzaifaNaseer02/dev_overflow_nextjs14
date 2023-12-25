@@ -2,7 +2,8 @@
 import React from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter, Space_Grotesk } from "next/font/google";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
@@ -19,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "DevOverflow",
+  title: "DevFlow",
   description:
     "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
   icons: {
@@ -39,7 +40,7 @@ export default function RootLayout({
           appearance={{
             elements: {
               formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover: text-primary-500",
+              footerActionLink: "primary-text-gradient hover:text-primary-500",
             },
           }}
         >

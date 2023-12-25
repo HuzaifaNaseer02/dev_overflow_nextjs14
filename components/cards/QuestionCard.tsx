@@ -7,7 +7,10 @@ import { formatNumber, getTimestamp } from "@/lib/utils";
 interface QuestionProps {
   _id: string;
   title: string;
-  tags: { _id: string; name: string }[];
+  tags: {
+    _id: string;
+    name: string;
+  }[];
   author: {
     _id: string;
     name: string;
@@ -42,6 +45,7 @@ const QuestionCard = ({
             </h3>
           </Link>
         </div>
+
         {/* If signed in add edit delete actions */}
       </div>
 
@@ -51,9 +55,9 @@ const QuestionCard = ({
         ))}
       </div>
 
-      <div className="flex-between mt-6 w-full flex-wrap gap-3 ">
+      <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <Metric
-          imgUrl="/assets/icons/avatar.svg"
+          imgUrl={author.picture}
           alt="user"
           value={author.name}
           title={` - asked ${getTimestamp(createdAt)}`}
@@ -61,6 +65,7 @@ const QuestionCard = ({
           isAuthor
           textStyles="body-medium text-dark400_light700"
         />
+
         <Metric
           imgUrl="/assets/icons/like.svg"
           alt="Upvotes"
@@ -70,16 +75,16 @@ const QuestionCard = ({
         />
         <Metric
           imgUrl="/assets/icons/message.svg"
-          alt="Message"
+          alt="message"
           value={formatNumber(answers.length)}
           title=" Answers"
           textStyles="small-medium text-dark400_light800"
         />
         <Metric
           imgUrl="/assets/icons/eye.svg"
-          alt="Eye"
+          alt="eye"
           value={formatNumber(views)}
-          title=" views"
+          title=" Views"
           textStyles="small-medium text-dark400_light800"
         />
       </div>
